@@ -55,54 +55,6 @@ class memoUI:
 
         return self.widget
 
-        # memo_ui = memoUI()
-
-        # # Widget
-        # widget = QWidget()
-
-        # # 레이아웃 배치
-        # Hboxlayout = QHBoxLayout()
-        # Hboxlayout_Left = QHBoxLayout()
-        # Vboxlayout_Right = QVBoxLayout()
-
-        # # addWidget, addLayout 의 두번째 매개변수를 사용하여 위젯을 확장할수있다. 25 75
-        # Hboxlayout.addLayout(Hboxlayout_Left)
-        # #Hboxlayout.addLayout(Vboxlayout_Right, 75)
-
-        # # Hboxlayout 안에 배치된 위젯 또는 레이아웃의 간격이 줄어든다.
-        # Hboxlayout.setSpacing(1)
-
-
-        # self.H_splitter = QSplitter(Qt.Horizontal)
-        # self.V_splitter = QSplitter(Qt.Vertical)
-
-        # # UI
-        # #------------------------------------------------------------
-        # self.folder_treeview = self.Folder_Treeview()
-        # self.file_treeview = self.File_Treeview()
-        # self.textEdit = self.TextEdit()
-
-        # self.V_splitter.addWidget(self.file_treeview)
-        # self.V_splitter.addWidget(self.textEdit)
-
-        # self.H_splitter.addWidget(self.folder_treeview)
-        # self.H_splitter.addWidget(self.V_splitter)
-
-        # # 배치된 Widget의 비율설정
-        # self.H_splitter.setStretchFactor(1, 3)
-        # self.H_splitter.setStretchFactor(0, 1)
-        # self.V_splitter.setStretchFactor(1, 1)
-        
-        # #Hboxlayout_Left.addWidget(self.folder_treeview)
-        # Hboxlayout_Left.addWidget(self.H_splitter)
-        # #Vboxlayout_Right.addWidget(self.file_treeview, 30)
-        # #Vboxlayout_Right.addWidget(self.textEdit, 70)
-
-        # widget.setLayout(Hboxlayout)
-
-        # return widget
-
-
     def Folder_Treeview(self):
         treeview = QTreeWidget()
         # treeview.setRootIsDecorated(False)
