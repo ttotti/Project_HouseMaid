@@ -1,0 +1,95 @@
+# QMainWindow는 위젯을 추가할 때 setCentralWidget() 함수를 사용하여 
+# 단 하나만 추가 가능하다.  layout이 아니라 위젯을 추가해야한다!!!
+# 여러개의 위젯이 포함된 화면을 만들기위해서 별도의 위젯으로 만들어주어야한다.
+# QWidget을 상속받은 클래스를 만들어 필요한 레이아웃과 위젯들을 추가해주고
+# 이 클래스의 인스턴스를 생성해서 setCentralWidget() 함수로 메인 함수에 추가해주면 된다.
+# -> QMainWindow.py 참고
+# 출처: https://lifeiseggs.tistory.com/862 [어쩌다 한번 하는 삽질]
+
+import sys
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.Qt import *
+
+from memoUI import *
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+        self.showWindow()
+        self.UI()
+
+    def showWindow(self):
+        self.setWindowTitle('House Maid')
+
+        # 모니터의 화면 해상도를 구함
+        screen_rect = app.desktop().screenGeometry()
+        width = screen_rect.width()
+        height = screen_rect.height()
+
+        self.setMouseTracking(True)
+
+        # self.setGeometry(width/2 - 500, height/2 - 400, 800, 600)
+        self.setGeometry(3500, 56, 800, 600)
+
+        self.show()
+
+    def UI(self):
+        # Widget
+        widget = QWidget()
+
+        memo_ui = memoUI(widget)
+
+
+        # # 레이아웃 배치
+        # Hboxlayout = QHBoxLayout()
+        # Hboxlayout_Left = QHBoxLayout()
+        # Vboxlayout_Right = QVBoxLayout()
+
+        # # addWidget, addLayout 의 두번째 매개변수를 사용하여 위젯을 확장할수있다. 25 75
+        # Hboxlayout.addLayout(Hboxlayout_Left)
+        # #Hboxlayout.addLayout(Vboxlayout_Right, 75)
+
+        # # Hboxlayout 안에 배치된 위젯 또는 레이아웃의 간격이 줄어든다.
+        # Hboxlayout.setSpacing(1)
+
+
+        # self.H_splitter = QSplitter(Qt.Horizontal)
+        # self.V_splitter = QSplitter(Qt.Vertical)
+
+        # # UI
+        # #------------------------------------------------------------
+        # self.folder_treeview = self.Folder_Treeview()
+        # self.file_treeview = self.File_Treeview()
+        # self.textEdit = self.TextEdit()
+
+        # self.V_splitter.addWidget(self.file_treeview)
+        # self.V_splitter.addWidget(self.textEdit)
+
+        # self.H_splitter.addWidget(self.folder_treeview)
+        # self.H_splitter.addWidget(self.V_splitter)
+
+        # # 배치된 Widget의 비율설정
+        # self.H_splitter.setStretchFactor(1, 3)
+        # self.H_splitter.setStretchFactor(0, 1)
+        # self.V_splitter.setStretchFactor(1, 1)
+        
+        # #Hboxlayout_Left.addWidget(self.folder_treeview)
+        # Hboxlayout_Left.addWidget(self.H_splitter)
+        # #Vboxlayout_Right.addWidget(self.file_treeview, 30)
+        # #Vboxlayout_Right.addWidget(self.textEdit, 70)
+
+        # widget.setLayout(Hboxlayout)
+    
+
+        #------------------------------------------------------------
+
+        self.setCentralWidget(widget)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MainWindow()
+    sys.exit(app.exec_())
