@@ -53,52 +53,29 @@ class memoUI:
 
         self.widget.setLayout(Hboxlayout)
 
-        return self.widget
 
     def Folder_Treeview(self):
         treeview = QTreeWidget()
+        treeview.setHeaderLabel("폴더")
         # treeview.setRootIsDecorated(False)
 
-        item1 = QTreeWidgetItem(treeview)
-
-        treeview.setHeaderLabel("폴더")
-
-        item1.setText(0, 'folder')
+        self.addFolder(treeview, '폴더1')
 
         return treeview
 
 
     def File_Treeview(self):
         treeview = QTreeWidget()
+        treeview.setHeaderLabels(["제목", "생성일", "수정일", "그룹"])
 
         # 최상위 항목 확장 및 축소에 대한 컨트롤 표시 여부
         # treeview.setRootIsDecorated(False)
         # 짝수 항목 배경에 색상 표시 여부
         #treeview.setAlternatingRowColors(True)
 
-        # 트리위젯에 추가할 아이템 생성
-        item1 = QTreeWidgetItem(treeview)
-        item2 = QTreeWidgetItem(treeview)
-
-        item1. setText(0, 'dsf')
-
-        treeview.setHeaderLabels(["제목", "생성일", "수정일", "그룹"])
-
-        # 아이템 추가
-        item1.setText(0, '제목')
-        item1.setText(1, '생성일')
-        item1.setText(2, '수정일')
-        item1.setText(3, '그룹')
-
-        item2.setText(0, '제목2')
+        self.addFile(treeview, '제목', '2021-07-31', '2021-07-31', 'ㅁㅁ')
 
         return treeview
-
-
-    def File_ListView(self):
-        listview = QListView()
-
-        listview
 
 
     def TextEdit(self):
@@ -106,3 +83,21 @@ class memoUI:
         textEdit.setAcceptRichText(False)
 
         return textEdit
+
+    # 폴더추가
+    def addFolder(self, treeview, title):
+        # 트리위젯에 추가할 아이템 생성
+        item = QTreeWidgetItem(treeview)
+
+        item.setText(0, title)
+
+
+    # 파일추가
+    def addFile(self, treeview, title, date, modify, group):
+        # 트리위젯에 추가할 아이템 생성
+        item = QTreeWidgetItem(treeview)
+
+        item.setText(0, title)
+        item.setText(1, date)
+        item.setText(2, modify)
+        item.setText(3, group)

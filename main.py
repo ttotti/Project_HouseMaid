@@ -40,8 +40,10 @@ class MainWindow(QMainWindow):
         # Widget
         widget = QWidget()
 
-        memo_ui = memoUI(widget)
+        # 메모 UI
+        memoUI(widget)
 
+        # 위젯 출력
         self.setCentralWidget(widget)
 
 
