@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.Qt import *
 
-from memoManager import *
+from MemoManager import *
 
 class MainWindow(QMainWindow):
 
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         widget = QWidget()
 
         # 메모 UI
-        memoManager(widget)
+        MemoManager(widget)
 
         # 위젯 출력
         self.setCentralWidget(widget)
