@@ -21,6 +21,9 @@ class MainWindow(QMainWindow):
         self.showWindow()
         self.UI()
 
+        #self.memo = MemoManager()
+        #self.widget = QWidget()
+
     def showWindow(self):
         self.setWindowTitle('House Maid')
 
@@ -37,7 +40,6 @@ class MainWindow(QMainWindow):
         self.show()
 
     def UI(self):
-        # Widget
         widget = QWidget()
 
         # 메모 UI
