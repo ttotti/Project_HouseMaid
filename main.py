@@ -18,8 +18,11 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.showWindow()
+
+        self.memoManager = MemoManager()
+
         self.UI()
+        self.showWindow()
 
         #self.memo = MemoManager()
         #self.widget = QWidget()
@@ -40,16 +43,12 @@ class MainWindow(QMainWindow):
         self.show()
 
     def UI(self):
-        widget = QWidget()
-
-        # 메모 UI
-        MemoManager(widget)
-
-        # 위젯 출력
-        self.setCentralWidget(widget)
+        # MemoManager 위젯 출력
+        self.setCentralWidget(self.memoManager)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MainWindow()
+    #ex2 = MemoManager()
     sys.exit(app.exec_())
