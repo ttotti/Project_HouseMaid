@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.memoManager = MemoManager()
+        self.memoManager = MemoManager(self)
 
         self.UI()
         self.showWindow()
@@ -45,6 +45,9 @@ class MainWindow(QMainWindow):
     def UI(self):
         # MemoManager 위젯 출력
         self.setCentralWidget(self.memoManager)
+
+        self.statusBar().showMessage("")
+
 
 
 if __name__ == '__main__':
