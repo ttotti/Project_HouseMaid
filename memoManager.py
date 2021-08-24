@@ -53,17 +53,17 @@ class MemoManager(QWidget):
         self.Hboxlayout.setSpacing(1)
 
         H_splitter = QSplitter(Qt.Horizontal)
-        self.V_splitter = QSplitter(Qt.Vertical)
+        V_splitter = QSplitter(Qt.Vertical)
 
-        self.V_splitter.addWidget(self.stackedwidget)
-        self.V_splitter.addWidget(self.textEdit)
+        V_splitter.addWidget(self.stackedwidget)
+        V_splitter.addWidget(self.textEdit)
 
         H_splitter.addWidget(self.folder_treewidget)
-        H_splitter.addWidget(self.V_splitter)
+        H_splitter.addWidget(V_splitter)
 
         H_splitter.setStretchFactor(1, 3)
         H_splitter.setStretchFactor(0, 1)
-        self.V_splitter.setStretchFactor(1, 1)
+        V_splitter.setStretchFactor(1, 1)
         
         self.Hboxlayout_Left.addWidget(H_splitter)
 
