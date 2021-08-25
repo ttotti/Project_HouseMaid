@@ -14,7 +14,7 @@ class MemoManager(QWidget):
         print("MemoManger().__init__()")
         
         # 레이아웃 배치
-        # 스텍 위젯 - 여러 위젯을 한 공간에 저장해서 선택할 수 있게 한다.
+        # 스텍 위젯 - 여러 위젯을 한 공간에 저장해서 선택할 수 있게 한다.(위젯 배열느낌)
         self.stackedwidget = QStackedWidget()
         self.stackedwidget.addWidget(File_Widgit().widget)
 
@@ -115,8 +115,15 @@ class MemoManager(QWidget):
     def removefolder_contextClick(self):
         print("removefolder.triggered.connect()")
 
+        listIndex = self.folder_treewidget.currentIndex().row()
+
         self.folder_root.removeChild(self.folder_item)
-        
+
+        self.stackedwidget.setCurrentIndex(listIndex)
+        self.stackedwidget.removeWidget(self.file_list[listIndex].widget)
+
+        del self.file_list[listIndex]
+
         # print(self.folder_root.childCount())
 
     # def clickItem(self, item):
@@ -128,8 +135,7 @@ class MemoManager(QWidget):
     def folder_pressedItem(self, item):
         print("pressedItem")
             
-        print(item.text(0), "클릭")
-        print(self.folder_treewidget.currentIndex().row())
+        print(item.text(0), "클릭 {0}번 트리".format(self.folder_treewidget.currentIndex().row()))
 
         listIndex = self.folder_treewidget.currentIndex().row()
 
@@ -144,10 +150,10 @@ class MemoManager(QWidget):
             self.removefolder.setEnabled(False)
             self.file_widget.newfile.setEnabled(False)
 
-        self.status_text()
-
         # 스텟에 저장된 위젯을 선택한다(+1 은 임시위젯으로 인해 0번 자리가 채워졌기 때문)
-        self.stackedwidget.setCurrentIndex(self.folder_treewidget.currentIndex().row()+1)
+        self.stackedwidget.setCurrentIndex(listIndex+1)
+
+        self.parent.statusBar().showMessage("선택 목록 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))
 
     def folder_changedItem(self, item):
         print("changed")
@@ -163,9 +169,7 @@ class MemoManager(QWidget):
             file_child = self.file_list[listIndex].file_root.child(count)
             file_child.setText(3, self.folderText)
 
-        self.status_text()
 
-    def status_text(self):
         self.parent.statusBar().showMessage("선택 목록 : " + self.folderText)
         
 
@@ -199,6 +203,9 @@ class File_Widgit(QWidget):
 
         self.UI()
         self.contextMenu()
+
+    def __del__(self):
+        print("File_Widgit __del__()")
 
     def UI(self):
         self.widget.setHeaderLabels(["제목", "생성일", "수정일", "그룹"])
