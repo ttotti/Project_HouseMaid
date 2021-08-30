@@ -7,9 +7,10 @@ import sys
 from File_Widget import *
 
 class Folder_Widget(QWidget):
-    def __init__(self, stackedwidget, parent):
+    def __init__(self, stackedwidget, textEdit_stackedwidget, parent):
         super().__init__()
         self.stackedwidget = stackedwidget
+        self.textEdit_stackedwidget = textEdit_stackedwidget
         self.parent = parent
 
         print("class : Folder_Widget")
@@ -18,7 +19,11 @@ class Folder_Widget(QWidget):
         self.folder_root = QTreeWidget.invisibleRootItem(self.widget)
 
         self.file_list = list()
+        self.folder_list = list()
 
+        # for i in range(10):
+        #     self.folder_list.append(i)
+    
         self.widget.setMouseTracking(True)
 
         self.folderText = ""
@@ -57,16 +62,18 @@ class Folder_Widget(QWidget):
     def newfolder_contextClick(self):
         print("newfolder.triggered.connect()")
 
+        self.folder_list.append(0)
+
         # 폴더 생성 시 리스트에 파일 위젯 추가
-        self.file_list.append(File_Widgit())
+        self.file_list.append(File_Widgit(self.textEdit_stackedwidget, self.folder_list, self.folder_root.childCount()))
         list_len = len(self.file_list)
         print("list : {0}".format(list_len))
-        listIndex = self.widget.currentIndex().row()
 
         self.stackedwidget.addWidget(self.file_list[list_len-1].widget)
 
         self.folder_root.addChild(self.addFolder("bird 폴더"))
 
+        listIndex = self.widget.currentIndex().row()
         self.parent.statusBar().showMessage("생성됨 : {0}     [선택 행/전체 수]: [{1}/{2}]".format("bird 폴더", listIndex+1, self.folder_root.childCount()))
         # print(self.folder_root.childCount())
 
@@ -87,7 +94,7 @@ class Folder_Widget(QWidget):
         self.parent.statusBar().showMessage("삭제됨 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))
 
     def folder_changedItem(self, item):
-        print("changed")
+        print("folder_changedItem")
         listIndex = self.widget.currentIndex().row()
 
         self.folder_item = item
@@ -104,9 +111,10 @@ class Folder_Widget(QWidget):
         self.parent.statusBar().showMessage("선택 목록 : " + self.folderText)
 
     def folder_pressedItem(self, item):
-        print("pressedItem")
+        print("folder_pressedItem")
             
-        print(item.text(0), "클릭 {0}번 트리".format(self.widget.currentIndex().row()))
+        print(item.text(0), "클릭 {0}번 폴더".format(self.widget.currentIndex().row()))
+        print("folder_list : {0}개".format(len(self.folder_list)))
 
         listIndex = self.widget.currentIndex().row()
 

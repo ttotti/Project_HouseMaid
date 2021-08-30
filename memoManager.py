@@ -17,15 +17,15 @@ class MemoManager(QWidget):
         self.Hboxlayout_Left = QHBoxLayout()
         self.Vboxlayout_Right = QVBoxLayout()
 
-        self.textEdit = QTextEdit()
-        self.textEdit.setAcceptRichText(False)
+        self.textEdit_stackedwidget = QStackedWidget()
+        self.textEdit_stackedwidget.addWidget(QTextEdit())
 
         # 레이아웃 배치
         # 스텍 위젯 - 여러 위젯을 한 공간에 저장해서 선택할 수 있게 한다.(위젯 배열느낌)
         self.stackedwidget = QStackedWidget()
-        self.stackedwidget.addWidget(File_Widgit().widget)
+        self.stackedwidget.addWidget(File_Widgit(self.textEdit_stackedwidget, None, -1).widget)
 
-        self.folder_treewidget = Folder_Widget(self.stackedwidget, self.parent)
+        self.folder_treewidget = Folder_Widget(self.stackedwidget, self.textEdit_stackedwidget, self.parent)
 
         self.UI()
 
@@ -39,7 +39,7 @@ class MemoManager(QWidget):
         V_splitter = QSplitter(Qt.Vertical)
 
         V_splitter.addWidget(self.stackedwidget)
-        V_splitter.addWidget(self.textEdit)
+        V_splitter.addWidget(self.textEdit_stackedwidget)
 
         H_splitter.addWidget(self.folder_treewidget.widget)
         H_splitter.addWidget(V_splitter)
