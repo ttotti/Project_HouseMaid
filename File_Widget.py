@@ -6,6 +6,7 @@ import sys
 
 from TextEdit_Widget import *
 
+# self.file_list에 추가됨
 class File_Widgit(QWidget):
     def __init__(self, stackedwidget, folder_list, folderIndex):
         super().__init__()
@@ -71,11 +72,11 @@ class File_Widgit(QWidget):
 
     def newfile_contextClick(self):
         print("newfile.triggered.connect()")
+        print("folderIndex : {0}".format(self.folderIndex))
 
         self.textEdit_list.append(TextEdit_Widget())
         self.folder_list[self.folderIndex] = self.textEdit_list
         
-
         list_len = len(self.textEdit_list)
         print("textEdit : {0}".format(list_len))
         # listIndex = self.widget.currentIndex().row()

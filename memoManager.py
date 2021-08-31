@@ -31,6 +31,9 @@ class MemoManager(QWidget):
 
         self.show()
 
+    def __del__(self):
+        print("MemoManager __del__()")
+
     def UI(self):
         self.Hboxlayout.addLayout(self.Hboxlayout_Left)
         self.Hboxlayout.setSpacing(1)

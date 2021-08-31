@@ -27,6 +27,9 @@ class MainWindow(QMainWindow):
         #self.memo = MemoManager()
         #self.widget = QWidget()
 
+    def __del__(self):
+        print("MainWindow __del__()")
+
     def showWindow(self):
         self.setWindowTitle('House Maid')
 

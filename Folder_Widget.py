@@ -9,6 +9,7 @@ from File_Widget import *
 class Folder_Widget(QWidget):
     def __init__(self, stackedwidget, textEdit_stackedwidget, parent):
         super().__init__()
+
         self.stackedwidget = stackedwidget
         self.textEdit_stackedwidget = textEdit_stackedwidget
         self.parent = parent
@@ -33,6 +34,9 @@ class Folder_Widget(QWidget):
 
         self.widget.itemPressed.connect(self.folder_pressedItem)
         self.widget.itemChanged.connect(self.folder_changedItem)
+
+    def __del__(self):
+        print("Folder_Widgit __del__()")
 
     def UI(self):
         self.widget.setHeaderLabel("목록")
@@ -88,6 +92,13 @@ class Folder_Widget(QWidget):
         self.stackedwidget.removeWidget(self.file_list[listIndex].widget)
 
         del self.file_list[listIndex]
+
+        # folerIndex를 한칸씩 밀고 folder_list 삭제
+        for index in range(listIndex, len(self.folder_list)-1):
+            print(index, len(self.folder_list))
+            self.file_list[index].folderIndex = self.file_list[index].folderIndex - 1
+
+        del self.folder_list[listIndex]
 
         print(self.folder_root.childCount())
 
