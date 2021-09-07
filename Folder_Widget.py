@@ -97,10 +97,24 @@ class Folder_Widget(QWidget):
         for index in range(listIndex, len(self.folder_list)-1):
             print(index, len(self.folder_list))
             self.file_list[index].folderIndex = self.file_list[index].folderIndex - 1
+        
+        # 삭제한 폴더에 있는 textEdit 스텍위젯에서 삭제
+        for index in range(len(self.folder_list[listIndex])):
+            self.textEdit_stackedwidget.removeWidget(self.folder_list[listIndex][index].widget)
+            print("삭제")
 
         del self.folder_list[listIndex]
 
+        # 이슈있슴 - 마지막 항목 삭제 시 에러남
+        self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][0].widget)
+
+        # if (self.folder_root.childCount() == 0):
+        #     self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][index].widget)
+        # else:
+        #     self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][index].widget)
+
         print(self.folder_root.childCount())
+        print("textEdit_stackedwidget : {0}".format(self.textEdit_stackedwidget.count()))
 
         self.parent.statusBar().showMessage("삭제됨 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))
 
@@ -142,5 +156,9 @@ class Folder_Widget(QWidget):
 
         # 스텟에 저장된 위젯을 선택한다(+1 은 임시위젯으로 인해 0번 자리가 채워졌기 때문)
         self.stackedwidget.setCurrentIndex(listIndex+1)
+
+        # 폴더 선택 시 해당 폴더의 첫번째 파일이 노출됨
+        if(self.file_list[listIndex].folder_list[listIndex] != 0):
+            self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][0].widget)
 
         self.parent.statusBar().showMessage("선택 목록 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))

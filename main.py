@@ -21,8 +21,8 @@ class MainWindow(QMainWindow):
 
         self.memoManager = MemoManager(self)
 
-        self.UI()
         self.showWindow()
+        self.UI()
 
         #self.memo = MemoManager()
         #self.widget = QWidget()
