@@ -66,6 +66,8 @@ class Folder_Widget(QWidget):
     def newfolder_contextClick(self):
         print("newfolder.triggered.connect()")
 
+        listIndex = self.widget.currentIndex().row()
+
         self.folder_list.append(0)
 
         # 폴더 생성 시 리스트에 파일 위젯 추가
@@ -77,7 +79,10 @@ class Folder_Widget(QWidget):
 
         self.folder_root.addChild(self.addFolder("bird 폴더"))
 
-        listIndex = self.widget.currentIndex().row()
+        # 생성 시 더미로 넣어놓은 위젯 노출
+        self.stackedwidget.setCurrentIndex(0)
+        self.textEdit_stackedwidget.setCurrentIndex(0)
+
         self.parent.statusBar().showMessage("생성됨 : {0}     [선택 행/전체 수]: [{1}/{2}]".format("bird 폴더", listIndex+1, self.folder_root.childCount()))
         # print(self.folder_root.childCount())
 
@@ -109,6 +114,8 @@ class Folder_Widget(QWidget):
         # 삭제 시 더미로 넣어놓은 위젯 노출
         self.stackedwidget.setCurrentIndex(0)
         self.textEdit_stackedwidget.setCurrentIndex(0)
+
+        self.removefolder.setEnabled(False)
 
         print(self.folder_root.childCount())
         print("textEdit_stackedwidget : {0}".format(self.textEdit_stackedwidget.count()))

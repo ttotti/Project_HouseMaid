@@ -91,9 +91,24 @@ class File_Widgit(QWidget):
     def removefile_contextClick(self):
         print("removefolder.triggered.connect()")
 
-        # listIndex = self.widget.currentIndex().row()
+        listIndex = self.widget.currentIndex().row()
 
         self.file_root.removeChild(self.file_item)
+
+        self.stackedwidget.removeWidget(self.folder_list[self.folderIndex][listIndex].widget)
+
+        del self.folder_list[self.folderIndex][listIndex]
+
+        if(len(self.folder_list[self.folderIndex]) == 0):
+            self.folder_list.append(0)
+            self.stackedwidget.setCurrentIndex(0)
+        elif (listIndex-1) == -1:
+            self.stackedwidget.setCurrentWidget(self.folder_list[self.folderIndex][listIndex].widget)
+        else:
+            self.stackedwidget.setCurrentWidget(self.folder_list[self.folderIndex][listIndex-1].widget)
+            print(listIndex-1)
+
+        self.removefile.setEnabled(False)
 
         print(self.file_root.childCount())
 
