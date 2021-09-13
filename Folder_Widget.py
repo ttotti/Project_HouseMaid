@@ -163,6 +163,6 @@ class Folder_Widget(QWidget):
 
         # 폴더 선택 시 해당 폴더의 첫번째 파일이 노출됨
         if(self.folder_list[listIndex] != 0):
-            self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][0].widget)
+            self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][self.file_list[listIndex].fileIndex].widget)
 
         self.parent.statusBar().showMessage("선택 목록 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))

@@ -25,6 +25,7 @@ class File_Widgit(QWidget):
         self.file_root = QTreeWidget.invisibleRootItem(self.widget)
 
         self.folderText = ""
+        self.fileIndex = 0
 
         self.UI()
         self.contextMenu()
@@ -62,6 +63,8 @@ class File_Widgit(QWidget):
     def addFile(self, title, date, modify, group):
         # 트리위젯에 추가할 아이템 생성
         item = QTreeWidgetItem()
+
+        item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled | Qt.ItemIsDragEnabled | Qt.ItemIsDropEnabled | Qt.ItemIsEditable)
 
         item.setText(0, title)
         item.setText(1, date)
@@ -128,6 +131,8 @@ class File_Widgit(QWidget):
         print("file_pressedItem")
         
         listIndex = self.widget.currentIndex().row()
+        self.fileIndex = listIndex
+
         print(item.text(0), "클릭 {0}번 폴더 {1}번 파일".format(self.folderIndex, self.widget.currentIndex().row()))
 
         self.file_item = item
