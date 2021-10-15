@@ -7,6 +7,7 @@
 # 출처: https://lifeiseggs.tistory.com/862 [어쩌다 한번 하는 삽질]
 
 import sys
+
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -23,8 +24,10 @@ class MainWindow(QMainWindow):
 
         self.showWindow()
         self.UI()
+        self.MenuBar()
 
         #self.memo = MemoManager()
+
         #self.widget = QWidget()
 
     def __del__(self):
@@ -50,6 +53,20 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.memoManager)
 
         self.statusBar().showMessage("")
+
+    def MenuBar(self):
+        meunbar = self.menuBar()
+        meunbar.setNativeMenuBar(False)
+
+        exitAction = QAction('종료', self)
+        exitAction.triggered.connect(qApp.quit)
+
+        saveAction = QAction('저장', self)
+        saveAction.triggered.connect(lambda : self.memoManager.memo_save())
+
+        menu = meunbar.addMenu('메뉴')
+        menu.addAction(saveAction)
+        menu.addAction(exitAction)
 
 
 

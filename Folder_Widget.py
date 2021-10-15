@@ -35,6 +35,8 @@ class Folder_Widget(QWidget):
         self.widget.itemPressed.connect(self.folder_pressedItem)
         self.widget.itemChanged.connect(self.folder_changedItem)
 
+        self.folder_data = list()
+
     def __del__(self):
         print("Folder_Widgit __del__()")
 
@@ -77,7 +79,9 @@ class Folder_Widget(QWidget):
 
         self.stackedwidget.addWidget(self.file_list[list_len-1].widget)
 
-        self.folder_root.addChild(self.addFolder("bird 폴더"))
+        self.foldername = "bird 폴더"
+
+        self.folder_root.addChild(self.addFolder(self.foldername))
 
         # 생성 시 더미로 넣어놓은 위젯 노출
         self.stackedwidget.setCurrentIndex(0)
@@ -85,6 +89,8 @@ class Folder_Widget(QWidget):
 
         self.parent.statusBar().showMessage("생성됨 : {0}     [선택 행/전체 수]: [{1}/{2}]".format("bird 폴더", listIndex+1, self.folder_root.childCount()))
         # print(self.folder_root.childCount())
+
+        #self.folder_data.append(self.file_list[listIndex].file_data)
 
     def removefolder_contextClick(self):
         print("removefolder.triggered.connect()")
@@ -128,13 +134,13 @@ class Folder_Widget(QWidget):
 
         self.folder_item = item
         self.folderText = item.text(0)
-        self.file_list[listIndex].folderText = item.text(0)
+        self.file_list[listIndex].foldername = item.text(0)
 
-        file_childCount = self.file_list[listIndex].file_root.childCount()
+        # file_childCount = self.file_list[listIndex].file_root.childCount()
 
-        for count in range(file_childCount):
-            file_child = self.file_list[listIndex].file_root.child(count)
-            file_child.setText(3, self.folderText)
+        # for count in range(file_childCount):
+        #     file_child = self.file_list[listIndex].file_root.child(count)
+        #     file_child.setText(3, self.folderText)
 
 
         self.parent.statusBar().showMessage("선택 목록 : " + self.folderText)
@@ -166,3 +172,11 @@ class Folder_Widget(QWidget):
             self.textEdit_stackedwidget.setCurrentWidget(self.folder_list[listIndex][self.file_list[listIndex].fileIndex].widget)
 
         self.parent.statusBar().showMessage("선택 목록 : {0}     [선택 행/전체 수]: [{1}/{2}]".format(self.folderText, listIndex+1, self.folder_root.childCount()))
+
+    def save_memo(self):
+        self.folder_data.clear()
+
+        for listIndex in range(len(self.file_list)):
+            self.folder_data.append(self.file_list[listIndex].file_data)
+
+        print(self.folder_data)

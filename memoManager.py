@@ -3,6 +3,7 @@ from PyQt5.QtGui import *
 from PyQt5.Qt import *
 from PyQt5.QtCore import *
 import sys
+import pickle
 
 from Folder_Widget import *
 
@@ -26,6 +27,14 @@ class MemoManager(QWidget):
         self.stackedwidget.addWidget(File_Widgit(self.textEdit_stackedwidget, None, -1).widget)
 
         self.folder_treewidget = Folder_Widget(self.stackedwidget, self.textEdit_stackedwidget, self.parent)
+        
+        #data = list()
+
+        with open("savememo.pickle", "rb") as fr:
+            data = pickle.load(fr)
+
+        print(data)
+
 
         self.UI()
 
@@ -54,3 +63,28 @@ class MemoManager(QWidget):
         self.Hboxlayout_Left.addWidget(H_splitter)
 
         self.setLayout(self.Hboxlayout)
+
+    def memo_save(self):
+        print("memo_save")
+
+        self.folder_treewidget.save_memo()
+
+        with open("savememo.pickle", "wb") as fw:
+            pickle.dump(self.folder_treewidget.folder_data, fw)
+
+
+    # def memo_save(self):
+    #     print("memo_save")
+
+    #     item = QTextEdit()
+
+    #     with open("savememo.pickle","wb") as fw:
+    #         pickle.dump(item, fw)
+
+        # savelist = list()
+        # savelist.append(self.stackedwidget)
+        # savelist.append(self.textEdit_stackedwidget)
+        # savelist.append(self.folder_treewidget)
+
+        # with open("savememo.pickle","wb") as fw:
+        #     pickle.dump(savelist, fw)

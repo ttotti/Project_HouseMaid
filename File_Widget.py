@@ -24,7 +24,6 @@ class File_Widgit(QWidget):
         self.widget = QTreeWidget()
         self.file_root = QTreeWidget.invisibleRootItem(self.widget)
 
-        self.folderText = ""
         self.fileIndex = 0
 
         self.UI()
@@ -33,11 +32,14 @@ class File_Widgit(QWidget):
         self.widget.itemPressed.connect(self.file_pressedItem)
         # self.widget.itemChanged.connect(self.file_changedItem)
 
+        self.file_data = list()
+        #self.file_data = []
+
     def __del__(self):
         print("File_Widgit __del__()")
 
     def UI(self):
-        self.widget.setHeaderLabels(["제목", "생성일", "수정일", "그룹"])
+        self.widget.setHeaderLabels(["제목", "생성일", "수정일", "미정"])
         self.widget.setContextMenuPolicy(Qt.ActionsContextMenu)
         self.widget.setColumnWidth(0, 160)
         self.widget.setColumnWidth(1, 150)
@@ -60,7 +62,7 @@ class File_Widgit(QWidget):
         
 
     # 파일추가
-    def addFile(self, title, date, modify, group):
+    def addFile(self, title, date, modify):
         # 트리위젯에 추가할 아이템 생성
         item = QTreeWidgetItem()
 
@@ -69,7 +71,7 @@ class File_Widgit(QWidget):
         item.setText(0, title)
         item.setText(1, date)
         item.setText(2, modify)
-        item.setText(3, group)
+        # item.setText(3, group)
 
         return item
 
@@ -85,11 +87,24 @@ class File_Widgit(QWidget):
         # listIndex = self.widget.currentIndex().row()
 
         self.stackedwidget.addWidget(self.folder_list[self.folderIndex][list_len-1].widget)
+        
+        self.filename = "bird 파일"
+        self.day = QDate.currentDate()
+        self.time = QTime.currentTime()
+        # self.foldername = ""
 
-        day = QDate.currentDate()
-        time = QTime.currentTime()
+        self.file_root.addChild(self.addFile(self.filename, self.day.toString('yyyy/MM/dd') + " - " + self.time.toString('hh:mm:ss'), self.day.toString('yyyy/MM/dd')+ " - " + self.time.toString('hh:mm:ss')))
 
-        self.file_root.addChild(self.addFile("bird 파일", day.toString('yyyy/MM/dd') + " - " + time.toString('hh:mm:ss'), day.toString('yyyy/MM/dd')+ " - " + time.toString('hh:mm:ss'), self.folderText))
+        self.file_data.append(self.filename)
+        self.file_data.append(self.day.toString('yyyy/MM/dd'))
+        self.file_data.append(self.time.toString('hh:mm:ss'))
+        # self.file_data.append(self.foldername)
+
+        # self.file_data[0] = self.filename
+        # self.file_data[1] = self.day
+        # self.file_data[2] = self.time
+
+        print(self.file_data)
 
     def removefile_contextClick(self):
         print("removefolder.triggered.connect()")
