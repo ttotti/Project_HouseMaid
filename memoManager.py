@@ -35,7 +35,6 @@ class MemoManager(QWidget):
 
         print(data)
 
-
         self.UI()
 
         self.show()
